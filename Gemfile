@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
+require 'rbconfig'
+gem 'wdm', '>= 0.1.0' if RbConfig::CONFIG['target_os'] =~ /mswin|mingw|cygwin/i
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.3'
 
@@ -27,10 +30,19 @@ gem 'coffee-rails', '~> 4.0.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
+group :test, :development do
+	gem 'rspec-rails',      ">= 2.0.0.beta"
+	gem "factory_girl_rails"
+	gem "guard-rspec"
+end
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
 end
+
+gem 'devise'
+gem 'simple_token_authentication'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
