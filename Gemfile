@@ -45,6 +45,8 @@ gem 'devise'
 gem 'simple_token_authentication'
 gem 'rails-settings-cached', '0.3.1'
 
+gem 'composite_primary_keys', '~>6.0.6' # This is used because Rails doesn't support composite primary keys and IS HEAVILY DEPENDANT OF RAILS VERSION
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 

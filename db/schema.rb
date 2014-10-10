@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 20141010182825) do
     t.datetime "from"
     t.datetime "to"
     t.integer  "activity_type_id"
-    t.integer  "organizer"
+    t.integer  "organizer_id"
     t.text     "message"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 20141010182825) do
   create_table "activity_shows", id: false, force: true do |t|
     t.integer  "user_id"
     t.integer  "activity_id"
-    t.boolean  "accepted"
+    t.boolean  "accepted",    default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 20141010182825) do
     t.text     "description"
     t.string   "picture"
     t.date     "born"
-    t.datetime "registered",   default: '2014-10-10 18:03:12'
+    t.datetime "registered",   default: '2014-10-10 20:00:56'
     t.integer  "range",        default: 50
     t.float    "rating_mean"
     t.integer  "rating_count", default: 0
@@ -65,17 +65,18 @@ ActiveRecord::Schema.define(version: 20141010182825) do
   add_index "settings", ["thing_type", "thing_id", "var"], name: "index_settings_on_thing_type_and_thing_id_and_var", unique: true
 
   create_table "users", force: true do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.string   "authentication_token"
+    t.boolean  "admin",                  default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

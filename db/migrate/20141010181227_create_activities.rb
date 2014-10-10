@@ -4,7 +4,7 @@ class CreateActivities < ActiveRecord::Migration
       t.datetime :from
       t.datetime :to
       t.integer :activity_type_id
-      t.integer :organizer
+      t.integer :organizer_id
       t.text :message
 
       t.timestamps

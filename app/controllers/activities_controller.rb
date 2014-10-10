@@ -1,5 +1,6 @@
 class ActivitiesController < ApplicationController
-  before_action :set_activity, only: [:show, :edit, :update, :destroy]
+  before_action :set_activity, only: [:show, :update, :destroy]
+  respond_to :json
 
   def index
     @activities = Activity.all
@@ -10,16 +11,9 @@ class ActivitiesController < ApplicationController
     respond_with(@activity)
   end
 
-  def new
-    @activity = Activity.new
-    respond_with(@activity)
-  end
-
-  def edit
-  end
-
   def create
     @activity = Activity.new(activity_params)
+    @activity.organizer = current_user
     @activity.save
     respond_with(@activity)
   end

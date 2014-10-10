@@ -3,7 +3,7 @@ class CreateActivityShows < ActiveRecord::Migration
     create_table :activity_shows, :id => false do |t|
       t.integer :user_id
       t.integer :activity_id
-      t.boolean :accepted
+      t.boolean :accepted, default: false
 
       t.timestamps
     end

@@ -1,5 +1,6 @@
 class ActivityTypesController < ApplicationController
-  before_action :set_activity_type, only: [:show, :edit, :update, :destroy]
+  before_action :set_activity_type, only: [:show, :update, :destroy]
+  respond_to :json
 
   def index
     @activity_types = ActivityType.all
@@ -8,14 +9,6 @@ class ActivityTypesController < ApplicationController
 
   def show
     respond_with(@activity_type)
-  end
-
-  def new
-    @activity_type = ActivityType.new
-    respond_with(@activity_type)
-  end
-
-  def edit
   end
 
   def create
