@@ -11,7 +11,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141009151949) do
+ActiveRecord::Schema.define(version: 20141010170539) do
+
+  create_table "profiles", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "picture"
+    t.date     "born"
+    t.datetime "registered",   default: '2014-10-10 18:03:12'
+    t.integer  "range",        default: 50
+    t.float    "rating_mean"
+    t.integer  "rating_count", default: 0
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "settings", force: true do |t|
+    t.string   "var",                   null: false
+    t.text     "value"
+    t.integer  "thing_id"
+    t.string   "thing_type", limit: 30
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "settings", ["thing_type", "thing_id", "var"], name: "index_settings_on_thing_type_and_thing_id_and_var", unique: true
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

@@ -5,10 +5,10 @@ class CreateProfiles < ActiveRecord::Migration
       t.text :description
       t.string :picture
       t.date :born
-      t.datetime :registered
-      t.integer :range
+      t.datetime :registered, :default => Time.now
+      t.integer :range, :default => 50
       t.float :rating_mean
-      t.integer :rating_count
+      t.integer :rating_count, :default => 0
       t.integer :user_id
 
       t.timestamps

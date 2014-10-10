@@ -31,9 +31,9 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jbuilder', '~> 1.2'
 
 group :test, :development do
-	gem 'rspec-rails',      ">= 2.0.0.beta"
-	gem "factory_girl_rails"
-	gem "guard-rspec"
+	gem 'rspec-rails',      '>= 2.0.0.beta'
+	gem 'factory_girl_rails'
+	gem 'guard-rspec'
 end
 
 group :doc do
@@ -43,6 +43,7 @@ end
 
 gem 'devise'
 gem 'simple_token_authentication'
+gem 'rails-settings-cached', '0.3.1'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'

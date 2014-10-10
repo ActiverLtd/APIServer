@@ -6,7 +6,8 @@ ActivityFeedBackend::Application.routes.draw do
   # You can have the root of your site routed with "root"
   get 'users/' => 'user#index'
 
-	#resources :user
+	get 'profile/' => 'profiles#show'
+	post 'profile/' => 'profiles#update'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
