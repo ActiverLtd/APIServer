@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-ActivityFeedBackend::Application.config.secret_key_base = '184aab7bfed47aae472733dc97d4ef30def89af9e80bdc3494e6e8d52235dbf1fa5d1de10e9cbc95b06b970ed3fa3866d551fdfadb3ae31e8e1f01610dfbff80'
+ActivityFeedBackend::Application.config.secret_key_base = '4b69b081e00ceb590ec4d919290efb1676d16e19f796cf2664377cad5eda9a461bdcc7d0f56e4d92a2597ef2c6b87617dc47cf00309601a45fe28acaac13faa5'
