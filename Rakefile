@@ -3,4 +3,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-ActivityFeedBackend::Application.load_tasks
+ActiverBackend::Application.load_tasks

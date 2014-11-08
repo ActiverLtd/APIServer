@@ -1,4 +1,4 @@
-ActivityFeedBackend::Application.routes.draw do
+ActiverBackend::Application.routes.draw do
 
 	get 'users/' => 'user#index'
 	get 'profile/' => 'profiles#show'
