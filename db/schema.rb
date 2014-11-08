@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 20141010182825) do
     t.text     "description"
     t.string   "picture"
     t.date     "born"
-    t.datetime "registered",   default: '2014-10-10 20:00:56'
+    t.datetime "registered",   default: '2014-11-08 22:29:19'
     t.integer  "range",        default: 50
     t.float    "rating_mean"
     t.integer  "rating_count", default: 0
