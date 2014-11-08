@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-ActiverBackend::Application.config.secret_key_base = '4b69b081e00ceb590ec4d919290efb1676d16e19f796cf2664377cad5eda9a461bdcc7d0f56e4d92a2597ef2c6b87617dc47cf00309601a45fe28acaac13faa5'
+APIServer::Application.config.secret_key_base = '4b69b081e00ceb590ec4d919290efb1676d16e19f796cf2664377cad5eda9a461bdcc7d0f56e4d92a2597ef2c6b87617dc47cf00309601a45fe28acaac13faa5'

@@ -3,4 +3,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-ActiverBackend::Application.load_tasks
+APIServer::Application.load_tasks

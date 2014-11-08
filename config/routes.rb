@@ -1,4 +1,4 @@
-ActiverBackend::Application.routes.draw do
+APIServer::Application.routes.draw do
 
 	get 'users/' => 'user#index'
 	get 'profile/' => 'profiles#show'
