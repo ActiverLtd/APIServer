@@ -11,5 +11,5 @@ APIServer::Application.routes.draw do
 	post 'activity_shows/' => 'activity_shows#create'
 	put 'activity_shows/' => 'activity_shows#update'
 
-  devise_for :users
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 end
