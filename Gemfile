@@ -42,6 +42,7 @@ group :doc do
 end
 
 gem 'devise'
+gem 'omniauth-facebook'
 gem 'simple_token_authentication'
 gem 'rails-settings-cached', '0.3.1'
 

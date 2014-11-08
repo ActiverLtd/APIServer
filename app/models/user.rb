@@ -3,9 +3,9 @@ class User < ActiveRecord::Base
 	acts_as_token_authenticatable
 	after_initialize :create_profile
 	# Include default devise modules. Others available are:
-	# :confirmable, :lockable, :timeoutable and :omniauthable
+	# :confirmable, :lockable, :timeoutable and
 	devise :database_authenticatable, :registerable,
-	       :recoverable, :rememberable, :trackable, :validatable
+	       :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
 	has_one :profile
 	accepts_nested_attributes_for :profile # This allows the profile attributes to be set as part of registration
