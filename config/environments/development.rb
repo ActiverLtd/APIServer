@@ -29,6 +29,8 @@ APIServer::Application.configure do
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
+  config.log_level = :debug
+
   if "irb" == $0
 	  config.logger = Logger.new(Rails.root.join('log/console_output.txt'))
   end
