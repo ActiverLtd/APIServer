@@ -34,6 +34,7 @@ group :test, :development do
 	gem 'rspec-rails',      '>= 2.0.0.beta'
 	gem 'factory_girl_rails'
 	gem 'guard-rspec'
+	gem 'thin'
 end
 
 group :doc do
@@ -41,6 +42,7 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+gem 'eventmachine'
 gem 'devise'
 gem 'omniauth-facebook'
 gem 'simple_token_authentication'

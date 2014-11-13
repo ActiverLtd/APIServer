@@ -1,3 +1,25 @@
+#!/usr/bin/env ruby
+require 'rack'
+
+# Thin SSL workaround
+module Rack
+	module Handler
+		class Thin
+			def self.run(app, options={})
+				app = Rack::Chunked.new(Rack::ContentLength.new(app))
+				server = ::Thin::Server.new(options[:Host] || '91.155.208.83',
+				                            options[:Port] || 443,
+				                            app)
+				server.ssl = true
+				server.ssl_options = {}
+				yield server if block_given?
+				server.start
+			end
+		end
+	end
+end
+# Workaround end
+
 #!/usr/bin/env ruby.exe
 APP_PATH = File.expand_path('../../config/application',  __FILE__)
 require_relative '../config/boot'
