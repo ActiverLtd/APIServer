@@ -1,0 +1,6 @@
+language: ruby
+rvm:
+- "2.0.0"
+script: bundle exec rspec spec
+before_script:
+- sqlite -e 'create database APIServer_test;'
