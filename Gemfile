@@ -37,10 +37,6 @@ group :test, :development do
 	gem 'thin'
 end
 
-group :production do
-	gem 'unicorn'
-end
-
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
@@ -58,10 +54,15 @@ gem 'composite_primary_keys', '~>6.0.6' # This is used because Rails doesn't sup
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
 # Use unicorn as the app server
-# gem 'unicorn'
+
+group :production do
+	gem 'unicorn'
+end
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+gem 'centurion'
