@@ -59,10 +59,10 @@ RUN apt-get install -qq -y libmysqlclient-dev
 
 # Install Rails App
 WORKDIR /app
-ONBUILD ADD Gemfile /app/Gemfile
-ONBUILD ADD Gemfile.lock /app/Gemfile.lock
-ONBUILD RUN bundle install --without development test
-ONBUILD ADD . /app
+ADD Gemfile /app/Gemfile
+ADD Gemfile.lock /app/Gemfile.lock
+RUN bundle install --without development test
+ADD . /app
 
 # Add default unicorn config
 ADD unicorn.rb /app/config/unicorn.rb
