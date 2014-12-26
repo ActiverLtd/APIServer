@@ -61,7 +61,8 @@ RUN apt-get install -qq -y libmysqlclient-dev
 WORKDIR /app
 ADD Gemfile /app/Gemfile
 ADD Gemfile.lock /app/Gemfile.lock
-RUN bundle install --without development test
+RUN bundle install
+#--without development test
 ADD . /app
 
 # Add default unicorn config
@@ -70,6 +71,7 @@ ADD unicorn.rb /app/config/unicorn.rb
 # Add default foreman config
 ADD Procfile /app/Procfile
 ENV RAILS_ENV production
-CMD bundle exec rake assets:precompile && foreman start -f Procfile
+#CMD bundle exec rake assets:precompile
+CMD foreman start -f Procfile
 
 EXPOSE 80
