@@ -65,8 +65,11 @@ RUN bundle install
 #--without development test
 ADD . /app
 
+ADD localhost.cert /etc/ssl/certs/
+ADD localhost.key /etc/ssl/private/
+
 # Add default unicorn config
-ADD unicorn.rb /app/config/unicorn.rb
+ADD config/unicorn.rb /app/config/unicorn.rb
 
 # Add default foreman config
 ADD Procfile /app/Procfile
@@ -74,4 +77,4 @@ ENV RAILS_ENV production
 #CMD bundle exec rake assets:precompile
 CMD foreman start -f Procfile
 
-EXPOSE 80
+EXPOSE 443
