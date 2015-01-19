@@ -75,8 +75,8 @@ ADD config/unicorn.rb /app/config/unicorn.rb
 ADD Procfile /app/Procfile
 ENV RAILS_ENV production
 #CMD bundle exec rake assets:precompile
-CMD rake db:create
-CMD rake db:migrate
+RUN rake db:create
+RUN rake db:migrate
 CMD foreman start -f Procfile
 
 EXPOSE 443
