@@ -1,28 +1,24 @@
-== README
+Activer v0.0.1
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+==Usage==
 
-Things you may want to cover:
+===Build & launch===
+docker build -t roopehakulinen/activer-v1 .
 
-* Ruby version
+CID=$(docker run -d -p 443:443 --net=bridge roopehakulinen/activer-v1);
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Add --no-cache=true if you want to build clean version.
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+
+===Access bash of server===
+sudo docker exec -i -t $CID bash
+
+===Get info (IP etc.) about server container===
+docker inspect $CID
+
+
+==Troubleshooting==
+Can't access the server?
+- Once access the site with browser to manually disable untrusted key warning.
+
