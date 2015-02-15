@@ -47,6 +47,7 @@ ADD nginx-sites.conf /etc/nginx/sites-enabled/default
 
 # Install foreman
 RUN gem install foreman
+RUN gem install ruby-debug-ide
 
 # Install the latest postgresql lib for pg gem
 RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
@@ -77,6 +78,9 @@ ENV RAILS_ENV production
 #CMD bundle exec rake assets:precompile
 RUN rake db:create
 RUN rake db:migrate
+RUN rake swagger:docs
 CMD foreman start -f Procfile
 
 EXPOSE 443
+EXPOSE 1234
+EXPOSE 26126

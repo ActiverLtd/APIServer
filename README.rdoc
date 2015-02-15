@@ -1,11 +1,18 @@
 Activer v0.0.1
 
 ==Usage==
+user-token: <token from signing in>
+user-email: <the username>
 
 ===Build & launch===
 docker build -t roopehakulinen/activer-v1 .
 
-CID=$(docker run -d -p 443:443 --net=bridge roopehakulinen/activer-v1);
+CID=$(docker run -d -p 443:443 -p 1234:1234 -p 26126:26126 --net=bridge roopehakulinen/activer-v1);
+
+===Run remote debugger===
+sudo docker exec -i -t $CID bash
+rdebug-ide --port 1234 --host 0.0.0.0 --dispatcher-port 26162 -- bin/rails s
+
 
 Add --no-cache=true if you want to build clean version.
 

@@ -63,6 +63,9 @@ end
 # gem 'capistrano', group: :development
 
 # Use debugger
-# gem 'debugger', group: [:development, :test]
+gem 'ruby-debug-ide'#, group: [:development, :test]
 
 gem 'centurion'
+
+gem 'swagger-docs'
+gem 'swagger-ui_rails'
