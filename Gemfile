@@ -63,7 +63,7 @@ end
 # gem 'capistrano', group: :development
 
 # Use debugger
-gem 'ruby-debug-ide'#, group: [:development, :test]
+#gem 'ruby-debug-ide'#, group: [:development, :test]
 
 gem 'centurion'
 

@@ -6,7 +6,6 @@ user-email: <the username>
 
 ===Build & launch===
 docker build -t roopehakulinen/activer-v1 .
-
 CID=$(docker run -d -p 443:443 -p 1234:1234 -p 26126:26126 --net=bridge roopehakulinen/activer-v1);
 
 ===Run remote debugger===
