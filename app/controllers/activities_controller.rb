@@ -8,13 +8,17 @@ class ActivitiesController < ApplicationController
 		summary "Fetches all Activities"
 		notes "This lists all the active Activities"
 		#param :query, :page, :integer, :optional, "Page number"
-		#param :path, :nested_id, :integer, :optional, "Team Id"
+		param :path, :activity_type_id, :integer, :optional, "Activity type id"
 		response :unauthorized
 		response :not_acceptable, "The request you made is not acceptable"
 	end
 
 	def index
-		@activities = Activity.all
+		if activity_params[:activity_type_id]
+			@activities = Activity.find_by_activity_type_id(activity_params[:activity_type_id])
+		else
+			@activities = Activity.all
+		end
 		respond_with(@activities)
 	end
 

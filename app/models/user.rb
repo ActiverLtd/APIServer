@@ -10,8 +10,7 @@ class User < ActiveRecord::Base
 	has_one :profile
 	accepts_nested_attributes_for :profile # This allows the profile attributes to be set as part of registration
 
-	has_many :activity_shows
-	has_many :accepted_activities, :class_name => 'Activity', through: :activity_shows
+	has_many :invitations
 
 	def create_profile
 		if new_record?

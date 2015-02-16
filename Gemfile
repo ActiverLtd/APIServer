@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 require 'rbconfig'
 gem 'wdm', '>= 0.1.0' if RbConfig::CONFIG['target_os'] =~ /mswin|mingw|cygwin/i
@@ -65,7 +65,7 @@ end
 # Use debugger
 #gem 'ruby-debug-ide'#, group: [:development, :test]
 
-gem 'centurion'
+#gem 'centurion'
 
 gem 'swagger-docs'
 gem 'swagger-ui_rails'
