@@ -31,15 +31,15 @@ gem 'uglifier', '>= 1.3.0'
 gem 'jbuilder', '~> 1.2'
 
 group :test, :development do
-	gem 'rspec-rails',      '>= 2.0.0.beta'
+	gem 'rspec-rails', '>= 2.0.0.beta'
 	gem 'factory_girl_rails'
 	gem 'guard-rspec'
 	gem 'thin'
 end
 
 group :doc do
-  # bundle exec rake doc:rails generates the API under doc/api.
-  gem 'sdoc', require: false
+	# bundle exec rake doc:rails generates the API under doc/api.
+	gem 'sdoc', require: false
 end
 
 gem 'eventmachine'
@@ -68,4 +68,3 @@ end
 #gem 'centurion'
 
 gem 'swagger-docs'
-gem 'swagger-ui_rails'
