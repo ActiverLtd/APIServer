@@ -5,35 +5,51 @@ class InvitationsController < ApplicationController
   swagger_controller :invitations, "Invitations Management"
 
   swagger_api :index do
-	  summary "Fetches all Invitations"
+	  summary "Returns users pending Invitations"
 	  notes "This lists all the active Invitations for current user"
-	  #param :query, :page, :integer, :optional, "Page number"
 	  response :unauthorized
 	  response :not_acceptable, "The request you made is not acceptable"
   end
-
 
   def index
     @invitations = Invitation.all
     respond_with(@invitations)
   end
 
+  swagger_api :show do
+    summary "Shows the Invitation"
+    notes "This shows the Invitation"
+    param :path, :id, :integer, :required, "Invitation id"
+    response :unauthorized
+    response :not_acceptable, "The request you made is not acceptable"
+  end
+
   def show
     respond_with(@invitation)
   end
 
-  def new
-    @invitation = Invitation.new
-    respond_with(@invitation)
-  end
-
-  def edit
+  swagger_api :create do
+    summary "Creates an Invitation AKA invite"
+    notes "This creates the Invitation, invites on other words"
+    param :path, :activity_id, :integer, :required, "Activity id"
+    param :form, :chat_message, :string, :optional, "Chat message"
+    response :unauthorized
+    response :not_acceptable, "The request you made is not acceptable"
   end
 
   def create
     @invitation = Invitation.new(invitation_params)
     @invitation.save
     respond_with(@invitation)
+  end
+
+  swagger_api :update do
+    summary "Updates the Invitation"
+    notes "This updates the Invitation"
+    param :path, :invitation_id, :integer, :required, "Invitation id"
+    param :form, :accepted, :boolean, :optional, "Accepted"
+    response :unauthorized
+    response :not_acceptable, "The request you made is not acceptable"
   end
 
   def update
