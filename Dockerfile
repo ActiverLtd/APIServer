@@ -47,7 +47,7 @@ ADD nginx-sites.conf /etc/nginx/sites-enabled/default
 
 # Install foreman
 RUN gem install foreman
-RUN gem install ruby-debug-ide
+RUN gem install debase
 
 # Install the latest postgresql lib for pg gem
 RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
@@ -62,6 +62,7 @@ RUN apt-get install -qq -y libmysqlclient-dev
 WORKDIR /app
 ADD Gemfile /app/Gemfile
 ADD Gemfile.lock /app/Gemfile.lock
+ENV RAILS_ENV development
 RUN bundle install
 #--without development test
 ADD . /app
@@ -74,7 +75,6 @@ ADD config/unicorn.rb /app/config/unicorn.rb
 
 # Add default foreman config
 ADD Procfile /app/Procfile
-ENV RAILS_ENV production
 #CMD bundle exec rake assets:precompile
 RUN rake db:create
 RUN rake db:migrate

@@ -1,7 +1,6 @@
 source 'http://rubygems.org'
 
 require 'rbconfig'
-gem 'wdm', '>= 0.1.0' if RbConfig::CONFIG['target_os'] =~ /mswin|mingw|cygwin/i
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.3'
@@ -34,7 +33,7 @@ group :test, :development do
 	gem 'rspec-rails', '>= 2.0.0.beta'
 	gem 'factory_girl_rails'
 	gem 'guard-rspec'
-	gem 'thin'
+	#gem 'thin'
 end
 
 group :doc do
@@ -54,16 +53,15 @@ gem 'composite_primary_keys', '~>6.0.6' # This is used because Rails doesn't sup
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
 # Use unicorn as the app server
-
-group :production do
-	gem 'unicorn'
-end
+gem 'unicorn'
+gem "unicorn-rails"
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
 
 # Use debugger
-gem 'ruby-debug-ide', group: [:development, :test]
+gem 'debase'
+gem 'ruby-debug-ide' #, group: [:development, :test]
 
 #gem 'centurion'
 
