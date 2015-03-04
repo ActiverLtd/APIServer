@@ -13,4 +13,22 @@ class ApplicationController < ActionController::Base
 		#headers['Access-Control-Allow-Headers'] = 'Origin, Content-Type, Accept, Authorization, Token'
 		headers['Access-Control-Max-Age'] = "1728000"
 	end
+
+	protected
+
+	def auth_vip_required
+		unless current_user.vip?
+			render :json => {error: 'Only allowed for VIP users.'}
+		end
+	end
+
+	def auth_admin_only
+		unless current_user.admin?
+			render :json => {error: 'Only allowed for Admin users.'}
+		end
+	end
+
+	def secure_params
+		params.require(:user).permit(:role)
+	end
 end

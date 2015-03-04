@@ -16,11 +16,11 @@ tar -xzvf ruby-install-0.4.3.tar.gz &&\
 cd ruby-install-0.4.3/ &&\
 make install
 
-# Install MRI Ruby 2.1.2
-RUN ruby-install ruby 2.1.2
+# Install MRI Ruby 2.2.0
+RUN ruby-install ruby 2.2.0
 
 # Add Ruby binaries to $PATH
-ENV PATH /opt/rubies/ruby-2.1.2/bin:$PATH
+ENV PATH /opt/rubies/ruby-2.2.0/bin:$PATH
 
 # Add options to gemrc
 RUN echo "gem: --no-document" > ~/.gemrc
@@ -28,9 +28,6 @@ RUN echo "gem: --no-document" > ~/.gemrc
 # Install bundler
 RUN gem install bundler
 
-
-# Install nodejs
-RUN apt-get install -qq -y nodejs
 
 # Install software-properties-common for add-apt-repository
 RUN apt-get install -qq -y software-properties-common
@@ -55,26 +52,21 @@ apt-get update && \
 DEBIAN_FRONTEND=noninteractive \
 apt-get install -y --force-yes libpq-dev
 
-## Install MySQL(for mysql, mysql2 gem)
-RUN apt-get install -qq -y libmysqlclient-dev
-
 # Install Rails App
 WORKDIR /app
 ADD Gemfile /app/Gemfile
-ADD Gemfile.lock /app/Gemfile.lock
+#ADD Gemfile.lock /app/Gemfile.lock
 ENV RAILS_ENV development
 RUN bundle install
 #--without development test
 ADD . /app
 
+# Add development certificates
 ADD localhost.cert /etc/ssl/certs/
 ADD localhost.key /etc/ssl/private/
 
-# Add default unicorn config
-ADD config/unicorn.rb /app/config/unicorn.rb
 
 # Add default foreman config
-ADD Procfile /app/Procfile
 #CMD bundle exec rake assets:precompile
 RUN rake db:create
 RUN rake db:migrate
