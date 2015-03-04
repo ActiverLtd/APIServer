@@ -14,38 +14,38 @@ class ActivitiesController < ApplicationController
 	end
 
 	def index
-		if activity_params[:activity_type_id]
-			@activities = Activity.find_by_activity_type_id(activity_params[:activity_type_id])
+		if params.has_key?(:activity_type_id)
+			@activities = Activity.find_by_activity_type_id(params[:activity_type_id])
 		else
 			@activities = Activity.all
 		end
 		respond_with(@activities)
 	end
 
-  swagger_api :show do
-    summary "Shows the Activity"
-    notes "This shows the Activity"
-    #param :query, :page, :integer, :optional, "Page number"
-    param :path, :id, :integer, :optional, "Activity id"
-    response :unauthorized
-    response :not_acceptable, "The request you made is not acceptable"
-  end
+	swagger_api :show do
+		summary "Shows the Activity"
+		notes "This shows the Activity"
+		#param :query, :page, :integer, :optional, "Page number"
+		param :path, :id, :integer, :optional, "Activity id"
+		response :unauthorized
+		response :not_acceptable, "The request you made is not acceptable"
+	end
 
 	def show
 		respond_with(@activity)
 	end
 
-  swagger_api :create do
-    summary "Create an Activity"
-    notes "This creates an Activity"
-    param :form, :activity_type_id, :integer, :required, "Activity type id"
-    param :form, :from, :datetime, :required, "From"
-    param :form, :to, :datetime, :required, "To"
-    param :form, :location, :integer, :required, "Location"
-    param :form, :party_size, :integer, :required, "Party size"
-    response :unauthorized
-    response :not_acceptable, "The request you made is not acceptable"
-  end
+	swagger_api :create do
+		summary "Create an Activity"
+		notes "This creates an Activity"
+		param :form, :activity_type_id, :integer, :required, "Activity type id"
+		param :form, :from, :datetime, :required, "From"
+		param :form, :to, :datetime, :required, "To"
+		param :form, :location, :integer, :required, "Location"
+		param :form, :party_size, :integer, :required, "Party size"
+		response :unauthorized
+		response :not_acceptable, "The request you made is not acceptable"
+	end
 
 	def create
 		@activity = Activity.new(activity_params)
@@ -54,32 +54,32 @@ class ActivitiesController < ApplicationController
 		respond_with(@activity)
 	end
 
-  swagger_api :update do
-    summary "Updates an Activity"
-    notes "This updates an Activity"
-    param :form, :activity_type_id, :integer, :optional, "Activity type id"
-    param :form, :from, :datetime, :optional, "From"
-    param :form, :to, :datetime, :optional, "To"
-    param :form, :location, :integer, :optional, "Location"
-    param :form, :party_size, :integer, :optional, "Party size"
-    response :unauthorized
-    response :not_acceptable, "The request you made is not acceptable"
-  end
+	swagger_api :update do
+		summary "Updates an Activity"
+		notes "This updates an Activity"
+		param :form, :activity_type_id, :integer, :optional, "Activity type id"
+		param :form, :from, :datetime, :optional, "From"
+		param :form, :to, :datetime, :optional, "To"
+		param :form, :location, :integer, :optional, "Location"
+		param :form, :party_size, :integer, :optional, "Party size"
+		response :unauthorized
+		response :not_acceptable, "The request you made is not acceptable"
+	end
 
 	def update
 		@activity.update(activity_params)
 		respond_with(@activity)
 	end
 
-  swagger_api :destroy do
-    summary "Destroys the Activity"
-    notes "This destroys the Activity"
-    param :path, :activity_id, :integer, :required, "Activity id"
-    response :unauthorized
-    response :not_acceptable, "The request you made is not acceptable"
-  end
+	swagger_api :destroy do
+		summary "Destroys the Activity"
+		notes "This destroys the Activity"
+		param :path, :activity_id, :integer, :required, "Activity id"
+		response :unauthorized
+		response :not_acceptable, "The request you made is not acceptable"
+	end
 
-  def destroy
+	def destroy
 		@activity.destroy
 		respond_with(@activity)
 	end
