@@ -1,12 +1,15 @@
 Activer v0.0.1
 
-==Usage==
+==API Params==
 user-token: <token from signing in>
 user-email: <the username>
 
+==Development==
+cd /c/Users/Roope/Documents/GitHub/ActiverLtd/APIServer
+
 ===Build & launch===
 docker build -t roopehakulinen/apiserver .
-CID=$(docker run -d -p 443:443 -p 1234:1234 -p 26126:26126 --net=bridge roopehakulinen/apiserver)
+CID=$(docker run -d -v $(pwd)/app:/app/app -p 443:443 -p 1234:1234 -p 26126:26126 --net=bridge roopehakulinen/apiserver)
 
 ===Run remote debugger===
 sudo docker exec -i -t $CID bash
@@ -27,6 +30,6 @@ docker inspect $CID
 
 
 ==Troubleshooting==
-Can't access the server?
+Can't access the server from browser?
 - Once access the site with browser to manually disable untrusted key warning.
 
