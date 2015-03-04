@@ -18,13 +18,13 @@ class ApplicationController < ActionController::Base
 
 	def auth_vip_required
 		unless current_user.vip?
-			render :json => {error: 'Only allowed for VIP users.'}
+			render :json => {error: 'Only allowed for VIP users.'}, :status => 403
 		end
 	end
 
 	def auth_admin_only
 		unless current_user.admin?
-			render :json => {error: 'Only allowed for Admin users.'}
+			render :json => {error: 'Only allowed for Admin users.'}, :status => 403
 		end
 	end
 
