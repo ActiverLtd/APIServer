@@ -28,6 +28,10 @@ sudo docker exec -i -t $CID bash
 ===Get info (IP etc.) about server container===
 docker inspect $CID
 
+==Hotswap==
+kill -s HUP $(cat tmp/unicorn.pid)
+or
+kill -s USR2 $(cat tmp/unicorn.pid)
 
 ==Troubleshooting==
 Can't access the server from browser?
