@@ -78,6 +78,7 @@ ADD Procfile /app/Procfile
 #CMD bundle exec rake assets:precompile
 RUN rake db:create
 RUN rake db:migrate
+RUN rake db:seed
 RUN rake swagger:docs
 CMD foreman start -f Procfile
 
