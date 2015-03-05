@@ -4,8 +4,12 @@ APIServer::Application.routes.draw do
 	post 'profile/' => 'profiles#update'
 
 	resources :activity_types
-	resources :activities
 	resources :invitations
+	shallow do
+		resources :activities do
+			resources :comments
+		end
+	end
 
 	devise_for :users, :controllers => {:omniauth_callbacks => "users/omniauth_callbacks"}
 end

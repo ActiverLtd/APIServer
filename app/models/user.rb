@@ -18,7 +18,9 @@ class User < ActiveRecord::Base
 	has_one :profile
 	accepts_nested_attributes_for :profile # This allows the profile attributes to be set as part of registration
 
+	has_many :activities
 	has_many :invitations
+	has_many :upcoming_activities, -> { where ' = 1 AND from >= #{DateTime.now.to_date}' }, :class_name => :invitation
 
 	def create_profile
 		if new_record?
