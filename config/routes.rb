@@ -4,7 +4,7 @@ APIServer::Application.routes.draw do
 	post 'profile/' => 'profiles#update'
 
 	resources :activity_types
-	resources :invitations
+	resources :suggestions
 	shallow do
 		resources :activities do
 			resources :comments

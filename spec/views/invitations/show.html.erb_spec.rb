@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe "invitations/show", type: :view do
+RSpec.describe "suggestions/show", type: :view do
   before(:each) do
-    @invitation = assign(:invitation, Invitation.create!(
+    @suggestion = assign(:suggestion, Suggestion.create!(
       :activity_id => 1,
       :user_id => 2,
       :accepted => false

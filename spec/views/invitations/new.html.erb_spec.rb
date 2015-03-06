@@ -1,24 +1,24 @@
 require 'rails_helper'
 
-RSpec.describe "invitations/new", type: :view do
+RSpec.describe "suggestions/new", type: :view do
   before(:each) do
-    assign(:invitation, Invitation.new(
+    assign(:suggestion, Suggestion.new(
       :activity_id => 1,
       :user_id => 1,
       :accepted => false
     ))
   end
 
-  it "renders new invitation form" do
+  it "renders new suggestion form" do
     render
 
-    assert_select "form[action=?][method=?]", invitations_path, "post" do
+    assert_select "form[action=?][method=?]", suggestions_path, "post" do
 
-      assert_select "input#invitation_activity_id[name=?]", "invitation[activity_id]"
+      assert_select "input#suggestion_activity_id[name=?]", "suggestion[activity_id]"
 
-      assert_select "input#invitation_user_id[name=?]", "invitation[user_id]"
+      assert_select "input#suggestion_user_id[name=?]", "suggestion[user_id]"
 
-      assert_select "input#invitation_accepted[name=?]", "invitation[accepted]"
+      assert_select "input#suggestion_accepted[name=?]", "suggestion[accepted]"
     end
   end
 end

@@ -14,11 +14,10 @@ class ActivitiesController < ApplicationController
 	end
 
 	def index
+    @activities = Activity.joins(:suggestions).where(suggestions: {user_id: current_user.id})
 		if params.has_key?(:activity_type_id)
-			@activities = Activity.find_by_activity_type_id(params[:activity_type_id])
-		else
-			@activities = Activity.all
-		end
+			@activities = @activities.where(activities: {activity_type_id: params[:activity_type_id]})#.find_by_activity_type_id(params[:activity_type_id])
+    end
 		respond_with(@activities)
 	end
 

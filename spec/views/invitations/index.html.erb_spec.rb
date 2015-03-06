@@ -1,14 +1,14 @@
 require 'rails_helper'
 
-RSpec.describe "invitations/index", type: :view do
+RSpec.describe "suggestions/index", type: :view do
   before(:each) do
-    assign(:invitations, [
-      Invitation.create!(
+    assign(:suggestions, [
+      Suggestion.create!(
         :activity_id => 1,
         :user_id => 2,
         :accepted => false
       ),
-      Invitation.create!(
+      Suggestion.create!(
         :activity_id => 1,
         :user_id => 2,
         :accepted => false
@@ -16,7 +16,7 @@ RSpec.describe "invitations/index", type: :view do
     ])
   end
 
-  it "renders a list of invitations" do
+  it "renders a list of suggestions" do
     render
     assert_select "tr>td", :text => 1.to_s, :count => 2
     assert_select "tr>td", :text => 2.to_s, :count => 2
