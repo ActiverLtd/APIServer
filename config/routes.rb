@@ -3,11 +3,11 @@ APIServer::Application.routes.draw do
 	get 'profile/' => 'profiles#show'
 	post 'profile/' => 'profiles#update'
 
-	resources :activity_types
-	resources :suggestions
+	resources :activity_types, :except => [:new, :edit]
 	shallow do
-		resources :activities do
-			resources :comments
+		resources :activities, :except => [:new, :edit] do
+			resources :suggestions, :except => [:new, :edit]
+			resources :comments, :except => [:new, :edit]
 		end
 	end
 
