@@ -14,11 +14,9 @@ class ActivitiesController < ApplicationController
 	end
 
 	def index
-		#Activity.joins('OUTER LEFT JOIN suggestions ON suggestions.activity_id != activities.id').where('suggestions.user_id = 2')
-		#Activity.includes(:suggestions).where('activities.id NOT IN (SELECT activity_id FROM suggestions WHERE user_id = 2)')
 		@activities = Activity.includes(:suggestions).where('activities.id NOT IN (SELECT activity_id FROM suggestions WHERE user_id = ?)', current_user.id)
 		if params.has_key?(:activity_type_id)
-			@activities = @activities.where(activities: {activity_type_id: params[:activity_type_id]}) #.find_by_activity_type_id(params[:activity_type_id])
+			@activities = @activities.where(activities: {activity_type_id: params[:activity_type_id]})
 		end
 		respond_with(@activities)
 	end
