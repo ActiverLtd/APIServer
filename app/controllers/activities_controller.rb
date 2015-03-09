@@ -89,6 +89,6 @@ class ActivitiesController < ApplicationController
 	end
 
 	def activity_params
-		params.require(:activity).permit(:from, :to, :activity_type_id, :organizer, :message)
+		params.require(:activity).permit(:from, :to, :activity_type_id, :message)
 	end
 end

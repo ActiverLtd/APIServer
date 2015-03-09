@@ -1,6 +1,7 @@
 class SuggestionsController < ApplicationController
 	before_action :set_activity, only: [:create]
-	before_action :set_suggestion, only: [:show, :edit, :update, :destroy]
+	before_action :set_suggestion, only: [:show, :update, :destroy]
+	before_action :check_ownership, only: [:update, :destroy]
 	respond_to :json
 
 	swagger_controller :suggestions, "Suggestions Management"
@@ -40,6 +41,9 @@ class SuggestionsController < ApplicationController
 
 	def create
 		@suggestion = Suggestion.new(suggestion_params)
+		if suggestion_params[:status] != 0 and suggestion_params[:status] != 1 # If the status isn't passed or invited
+			render :json => {errors: "Can't create a suggestion unless it is of status passed or invited."}, status: :unprocessable_entity and return
+		end
 		@suggestion.user_id = current_user.id
 		@suggestion.activity_id = @activity.id
 		@suggestion.save
@@ -50,12 +54,20 @@ class SuggestionsController < ApplicationController
 		summary "Updates the Suggestion"
 		notes "This updates the Suggestion"
 		param :path, :suggestion_id, :integer, :required, "Suggestion id"
-		param :form, :status, :integer, :optional, "Accepted"
+		param :form, :status, :integer, :optional, "Status"
 		response :unauthorized
 		response :not_acceptable, "The request you made is not acceptable"
+		response :unprocessable_entity
 	end
 
 	def update
+		if !current_user.admin?
+			if !@suggestion.invited? or suggestion_params[:status] != 2
+				render :json => {errors: "Can't accept suggestion unless it is invitation in the first place."}, status: :unprocessable_entity and return
+			elsif @suggestion.match?
+				render :json => {errors: "The invitation was already accepted."}, status: :unprocessable_entity and return
+			end
+		end
 		@suggestion.update(suggestion_params)
 		respond_with(@suggestion)
 	end
@@ -77,5 +89,9 @@ class SuggestionsController < ApplicationController
 
 	def suggestion_params
 		params.require(:suggestion).permit(:status)
+	end
+
+	def check_ownership
+		current_user == @suggestion.user or current_user.admin?
 	end
 end
