@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
 	before_action :set_activity, only: [:create]
 	before_action :set_comment, only: [:show, :update, :destroy]
-	before_action -> { check_access @comment.user }, only: [:update, :destroy]
+	before_action -> { check_access @comment.user }, only: [:show, :update, :destroy]
 	respond_to :json
 
 	swagger_controller :comments, "Comments Management"

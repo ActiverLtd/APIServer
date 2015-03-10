@@ -1,5 +1,6 @@
 class ActivitiesController < ApplicationController
 	before_action :set_activity, only: [:show, :update, :destroy]
+	before_action -> { check_access @activity.user }, only: [:show, :update, :destroy]
 	respond_to :json
 
 	swagger_controller :activities, "Activity Management"
