@@ -15,11 +15,11 @@ class User < ActiveRecord::Base
 	devise :database_authenticatable, :registerable,
 	       :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
-	has_one :profile
+	has_one :profile, dependent: :destroy
 	accepts_nested_attributes_for :profile # This allows the profile attributes to be set as part of registration
 
-	has_many :activities
-	has_many :suggestions
+	has_many :activities, dependent: :destroy
+	has_many :suggestions, dependent: :destroy
 	has_many :upcoming_activities, -> { where ' = 1 AND from >= #{DateTime.now.to_date}' }, :class_name => :suggestion
 
 	def create_profile
