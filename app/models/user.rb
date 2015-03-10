@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
 
 	has_many :activities, dependent: :destroy
 	has_many :suggestions, dependent: :destroy
-	has_many :upcoming_activities, -> { where ' = 1 AND from >= #{DateTime.now.to_date}' }, :class_name => :suggestion
+	#has_many :upcoming_activities, -> { where ' = 1 AND from >= #{DateTime.now.to_date}' }, class_name: :suggestion
 
 	def create_profile
 		if new_record?
