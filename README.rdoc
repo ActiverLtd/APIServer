@@ -9,18 +9,11 @@ cd /c/Users/Roope/Documents/GitHub/ActiverLtd/APIServer
 
 ===Build & launch
 docker build -t roopehakulinen/apiserver .
-CID=$(docker run -d -v $(pwd)/app:/app/app -p 443:443 -p 1234:1234 -p 26126:26126 --net=bridge roopehakulinen/apiserver)
-
-===Run remote debugger
-sudo docker exec -i -t $CID bash
-rdebug-ide --port 1234 --host 0.0.0.0 --dispatcher-port 26162 -- bin/rails s
-
 
 Add --no-cache=true if you want to build clean version.
 
-==Production
-docker pull roopehakulinen/apiserver
-CID=$(docker run -d -p 443:443 roopehakulinen/apiserver);
+CID=$(docker run -d -v $(pwd)/app:/app/app -p 443:443 -p 1234:1234 -p 26126:26126 --net=bridge roopehakulinen/apiserver)
+
 
 ===Access bash of server
 sudo docker exec -i -t $CID bash
@@ -28,10 +21,25 @@ sudo docker exec -i -t $CID bash
 ===Get info (IP etc.) about server container
 docker inspect $CID
 
-==Hotswap
+===Hotswap
 kill -s HUP $(cat tmp/unicorn.pid)
 or
 kill -s USR2 $(cat tmp/unicorn.pid)
+
+===Running test cases
+RAILS_ENV=test rake db:setup
+rake spec
+
+===Run remote debugger
+sudo docker exec -i -t $CID bash
+rdebug-ide --port 1234 --host 0.0.0.0 --dispatcher-port 26162 -- bin/rails s
+
+
+
+==Production
+docker pull roopehakulinen/apiserver
+CID=$(docker run -d -p 443:443 roopehakulinen/apiserver);
+
 
 ==Troubleshooting
 Can't access the server from browser?
