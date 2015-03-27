@@ -28,7 +28,7 @@ kill -s USR2 $(cat tmp/unicorn.pid)
 
 ===Running test cases
 RAILS_ENV=test rake db:setup
-rake spec
+rspec
 
 ===Run remote debugger
 sudo docker exec -i -t $CID bash
