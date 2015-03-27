@@ -1,8 +1,14 @@
 Activer v0.0.1
 
-==API Params
+==Authentication
+Authentication parameters can be provided via URL parameters or as headers
+=== URL parameters
 user-token: <token from signing in>
 user-email: <the username>
+
+=== Headers
+X-Auth-Email:
+X-Auth-Token:
 
 ==Development
 cd /c/Users/Roope/Documents/GitHub/ActiverLtd/APIServer
@@ -29,6 +35,10 @@ kill -s USR2 $(cat tmp/unicorn.pid)
 ===Running test cases
 RAILS_ENV=test rake db:setup
 rspec
+
+only one test case:
+
+rspec spec/controllers/activity_types_controller_spec.rb:42
 
 ===Run remote debugger
 sudo docker exec -i -t $CID bash
