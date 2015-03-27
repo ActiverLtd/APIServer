@@ -75,6 +75,6 @@ class ActivityTypesController < ApplicationController
 	end
 
 	def activity_type_params
-		params.require(:activity_type).permit(:name)
+		params.require(:activity_type).permit(:name, :style, :image_url)
 	end
 end
