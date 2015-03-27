@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-	before_action :set_activity, only: [:create]
+	before_action :set_activity, only: [:index, :create]
 	before_action :set_comment, only: [:show, :update, :destroy]
 	before_action -> { check_access @comment.user }, only: [:show, :update, :destroy]
 	respond_to :json
@@ -14,7 +14,7 @@ class CommentsController < ApplicationController
 	end
 
 	def index
-		@comments = Comment.all
+		@comments = @activity.comments
 		respond_with(@comments)
 	end
 

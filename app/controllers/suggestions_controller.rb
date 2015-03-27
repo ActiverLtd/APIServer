@@ -1,7 +1,7 @@
 class SuggestionsController < ApplicationController
-	before_action :set_activity, only: [:create]
+	before_action :set_activity, only: [:index, :create]
 	before_action :set_suggestion, only: [:show, :update, :destroy]
-	before_action :check_ownership, only: [:update, :destroy]
+  before_action -> { check_access @suggestion.user }, only: [:show, :update, :destroy]
 	respond_to :json
 
 	swagger_controller :suggestions, "Suggestions Management"
@@ -14,7 +14,7 @@ class SuggestionsController < ApplicationController
 	end
 
 	def index
-		@suggestions = Suggestion.all
+		@suggestions = @activity.suggestions.where(status: 1)
 		respond_with(@suggestions)
 	end
 
@@ -61,7 +61,7 @@ class SuggestionsController < ApplicationController
 	end
 
 	def update
-		if !current_user.admin?
+		if !current_user.admin? # Allow admins to update they as they wish..
 			if !@suggestion.invited? or suggestion_params[:status] != 2
 				render :json => {errors: "Can't accept suggestion unless it is invitation in the first place."}, status: :unprocessable_entity and return
 			elsif @suggestion.match?
@@ -89,9 +89,5 @@ class SuggestionsController < ApplicationController
 
 	def suggestion_params
 		params.require(:suggestion).permit(:status)
-	end
-
-	def check_ownership
-		current_user == @suggestion.user or current_user.admin?
 	end
 end
