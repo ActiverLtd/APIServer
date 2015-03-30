@@ -65,6 +65,7 @@ ADD . /app
 ADD localhost.cert /etc/ssl/certs/
 ADD localhost.key /etc/ssl/private/
 
+RUN mkdir /app/tmp/
 
 # Add default foreman config
 #CMD bundle exec rake assets:precompile
