@@ -6,10 +6,10 @@ class ApplicationController < ActionController::Base
 	respond_to :json
 
 	rescue_from(ActionController::RoutingError) {
-		render :json => {:error_message => "The resource you were looking for does not exist"}
+		render :json => {:error_message => "The resource you were looking for does not exist"}, status: :not_found
 	}
 	rescue_from(Exception) {
-		render :json => {:error_message => "We're sorry, but something went wrong. We've been notified about this issue and we'll take a look at it shortly."}
+		render :json => {:error_message => "We're sorry, but something went wrong. We've been notified about this issue and we'll take a look at it shortly."}, status: :internal_server_error
 	}
 
 	after_filter :cors_set_access_control_headers
