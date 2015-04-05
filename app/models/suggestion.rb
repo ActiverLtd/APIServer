@@ -1,5 +1,5 @@
 class Suggestion < ActiveRecord::Base
-	enum status: [:passed, :invited, :match]
+	enum status: [:passed, :invited, :match, :rejected]
 	belongs_to :user
 	belongs_to :activity
 
