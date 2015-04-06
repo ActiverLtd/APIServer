@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
 	# Include default devise modules. Others available are:
 	# :confirmable, :lockable, :timeoutable and
 	devise :database_authenticatable, :registerable,
-	       :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:facebook]
+	       :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
 	has_one :profile, dependent: :destroy
 	accepts_nested_attributes_for :profile # This allows the profile attributes to be set as part of registration
@@ -33,8 +33,8 @@ class User < ActiveRecord::Base
 			logger.error auth
 			user.email = auth.info.email
 			user.password = Devise.friendly_token[0, 20]
-			#user.name = auth.info.name # assuming the user model has a name
-			#user.image = auth.info.image # assuming the user model has an image
+			#user.profile.name = auth.info.name
+			#user.profile.image = auth.info.image
 		end
 	end
 
