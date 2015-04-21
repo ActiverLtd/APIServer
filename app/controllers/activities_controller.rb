@@ -15,7 +15,14 @@ class ActivitiesController < ApplicationController
 	end
 
 	def index
-		@activities = Activity.includes(:suggestions).where('activities.id NOT IN (SELECT activity_id FROM suggestions WHERE user_id = ?)', current_user.id)
+		if not params.has_key?(:lat) or not params.has_key?(:lng) or not params.has_key?(:range)
+			render :json => {errors: "Missing latitude, longitude or range."}, status: :precondition_failed and return
+		end
+
+		# First filter by range
+		@activities = Activity.within(params[:range], :origin => [params[:lat], params[:lng]])
+
+		@activities = @activities.includes(:suggestions).where('activities.id NOT IN (SELECT activity_id FROM suggestions WHERE user_id = ?)', current_user.id)
 		if params.has_key?(:activity_type_id)
 			@activities = @activities.where(activities: {activity_type_id: params[:activity_type_id]})
 		end
@@ -51,6 +58,7 @@ class ActivitiesController < ApplicationController
 		@activity = Activity.new(activity_params)
 		@activity.organizer = current_user
 		@activity.save
+		Comment.create writer: current_user, activity: @activity, text: activity_params[:message]
 		respond_with(@activity)
 	end
 
@@ -90,6 +98,6 @@ class ActivitiesController < ApplicationController
 	end
 
 	def activity_params
-		params.require(:activity).permit(:from, :to, :activity_type_id, :message)
+		params.require(:activity).permit(:from, :to, :location_name, :lat, :lng, :activity_type_id, :message, :participant_count, :required_level)
 	end
 end

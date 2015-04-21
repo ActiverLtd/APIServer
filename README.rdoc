@@ -22,7 +22,7 @@ CID=$(docker run -d -v $(pwd)/app:/app/app -p 443:443 -p 1234:1234 -p 26126:2612
 
 
 ===Access bash of server
-sudo docker exec -i -t $CID bash
+6
 
 ===Get info (IP etc.) about server container
 docker inspect $CID

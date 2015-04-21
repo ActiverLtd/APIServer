@@ -32,6 +32,8 @@ gem 'simple_token_authentication'
 gem 'rails-settings-cached', '0.4.1'
 gem 'composite_primary_keys', '=8.0.0' # This is used because Rails doesn't support composite primary keys and IS HEAVILY DEPENDANT OF RAILS VERSION
 
+gem 'geokit-rails'
+
 platforms :ruby do # linux
 	gem 'unicorn' # Use unicorn as the app server
 	gem 'unicorn-rails' # Serve unicorn as 'rails server'

@@ -22,6 +22,10 @@ class User < ActiveRecord::Base
 	has_many :suggestions, dependent: :destroy
 	#has_many :upcoming_activities, -> { where ' = 1 AND from >= #{DateTime.now.to_date}' }, class_name: :suggestion
 
+	def as_json(options = {})
+		super(options.merge({except: [:authentication_token], :include => :profile}))
+	end
+
 	def create_profile
 		if new_record?
 			Profile.create! :user => self
