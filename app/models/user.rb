@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
 	include RailsSettings::Extend
 	acts_as_token_authenticatable
-	after_initialize :create_profile
+	after_create :create_profile
 
 	enum role: [:user, :vip, :admin]
 	after_initialize :set_default_role, :if => :new_record?

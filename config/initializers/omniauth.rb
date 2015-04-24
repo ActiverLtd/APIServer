@@ -1,3 +1,4 @@
+OmniAuth.config.logger = Rails.logger
 Rails.application.config.middleware.use OmniAuth::Builder do
 
 	if RbConfig::CONFIG["host_os"] =~ /mingw|mswin/
