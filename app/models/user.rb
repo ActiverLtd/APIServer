@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
 	include RailsSettings::Extend
 	acts_as_token_authenticatable
-	after_create :create_profile
+	after_create :add_profile
 
 	enum role: [:user, :vip, :admin]
 	after_initialize :set_default_role, :if => :new_record?
@@ -27,19 +27,26 @@ class User < ActiveRecord::Base
 		                     :include => :profile}))
 	end
 
-	def create_profile
-		if new_record?
-			Profile.create! :user => self
+	def add_profile
+		if new_record? and
+				Profile.create! :user => self
 		end
 	end
 
 	def self.from_omniauth(auth)
-		where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-			logger.error auth
-			user.email = auth.info.email
+		where(provider: auth[:provider], uid: auth[:id]).first_or_create do |user|
+			user.email = auth[:email]
 			user.password = Devise.friendly_token[0, 20]
-			#user.profile.name = auth.info.name
-			#user.profile.image = auth.info.image
+
+			user.create_profile({name: auth[:name], born: auth[:birthday], picture: auth[:picture][:data][:url]})
+
+			#user.profile.name = auth[:name]
+			#user.profile.born = auth[:birthday]
+			#
+			user.profile.male = true if auth[:gender] == 'male'
+			user.profile.male = false if auth[:gender] == 'female'
+			#
+			#user.profile.picture = auth[:picture][:data][:url]
 		end
 	end
 

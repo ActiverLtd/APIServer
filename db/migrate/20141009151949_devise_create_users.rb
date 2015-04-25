@@ -7,6 +7,10 @@ class DeviseCreateUsers < ActiveRecord::Migration
 
 			t.integer :role, default: 0
 
+			## Omniauthable
+			t.string :provider
+			t.string :uid
+
 			## Recoverable
 			t.string :reset_password_token
 			t.datetime :reset_password_sent_at
