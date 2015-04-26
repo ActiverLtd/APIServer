@@ -55,10 +55,11 @@ class ActivitiesController < ApplicationController
 	end
 
 	def create
-		@activity = Activity.new(activity_params)
+		message = activity_params[:message]
+		@activity = Activity.new(activity_params.slice!(:message))
 		@activity.organizer = current_user
 		@activity.save
-		Comment.create writer: current_user, activity: @activity, text: activity_params[:message]
+		Comment.create writer: current_user, activity: @activity, text: message
 		respond_with(@activity)
 	end
 
