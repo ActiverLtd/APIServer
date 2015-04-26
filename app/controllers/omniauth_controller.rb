@@ -1,8 +1,8 @@
-class OmniauthController < ActionController::Base
+class OmniauthController < ApplicationController
 	respond_to :json
 
 	def facebook
 		@user = User.from_omniauth(params.merge({provider: 'facebook'}))
-		respond_with @user
+		render json: @user
 	end
 end

@@ -28,8 +28,8 @@ class User < ActiveRecord::Base
 	end
 
 	def add_profile
-		if new_record? and
-				Profile.create! :user => self
+		if new_record?
+			Profile.create! :user => self
 		end
 	end
 
@@ -40,13 +40,8 @@ class User < ActiveRecord::Base
 
 			user.create_profile({name: auth[:name], born: auth[:birthday], picture: auth[:picture][:data][:url]})
 
-			#user.profile.name = auth[:name]
-			#user.profile.born = auth[:birthday]
-			#
 			user.profile.male = true if auth[:gender] == 'male'
 			user.profile.male = false if auth[:gender] == 'female'
-			#
-			#user.profile.picture = auth[:picture][:data][:url]
 		end
 	end
 
