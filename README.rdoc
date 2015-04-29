@@ -50,7 +50,7 @@ rdebug-ide --port 1234 --host 0.0.0.0 --dispatcher-port 26162 -- bin/rails s
 
 ==Production
 docker pull roopehakulinen/apiserver
-CID=$(docker run -d -p 443:443 roopehakulinen/apiserver);
+CID=$(docker run -d -v /etc/ssl:/etc/ssl -p 443:443 roopehakulinen/apiserver);
 
 
 ==Troubleshooting
