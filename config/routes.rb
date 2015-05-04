@@ -4,6 +4,9 @@ APIServer::Application.routes.draw do
 	post 'profile/' => 'profiles#update'
 
 	post 'users/facebook/' => 'omniauth#facebook'
+	get 'suggestions/' => 'suggestion#index'
+	get 'suggestions/:activity_id' => 'suggestion#show'
+
 	resources :activity_types, :except => [:new, :edit]
 	shallow do
 		resources :activities, :except => [:new, :edit] do

@@ -1,7 +1,7 @@
 class SuggestionsController < ApplicationController
-	before_action :set_activity, only: [:index, :create]
-	before_action :set_suggestion, only: [:show, :update, :destroy]
-  before_action -> { check_access @suggestion.user }, only: [:show, :update, :destroy]
+	before_action :set_activity, only: [:show, :create]
+	before_action :set_suggestion, only: [:update, :destroy]
+	before_action -> { check_access @suggestion.user }, only: [:show, :update, :destroy]
 	respond_to :json
 
 	swagger_controller :suggestions, "Suggestions Management"
@@ -14,7 +14,7 @@ class SuggestionsController < ApplicationController
 	end
 
 	def index
-		@suggestions = @activity.suggestions.where(status: 1)
+		@suggestions = Activity.joins(:suggestions).where(suggestions: {status: 1}, activities: {organizer: current_user})
 		respond_with(@suggestions)
 	end
 
@@ -27,7 +27,8 @@ class SuggestionsController < ApplicationController
 	end
 
 	def show
-		respond_with(@suggestion)
+		@suggestions = @activity.suggestions.where(status: 1)
+		respond_with(@suggestions)
 	end
 
 	swagger_api :create do
