@@ -14,7 +14,7 @@ class SuggestionsController < ApplicationController
 	end
 
 	def index
-		@suggestions = Activity.joins(:suggestions).where(suggestions: {status: 1}, activities: {organizer: current_user})
+		@suggestions = Activity.joins(:suggestions).where(suggestions: {status: 1}, activities: {organizer_id: current_user.id})
 		respond_with(@suggestions)
 	end
 
