@@ -29,6 +29,14 @@ class ActivitiesController < ApplicationController
 		respond_with(@activities)
 	end
 
+	def my
+		my_activities = Activity.all.where(organizer_id: current_user.id)
+		participants = Activity.includes(:suggestions).where(suggestions: {user_id: current_user.id}).where.not(suggestions: {status: 0})
+		@activities = my_activities + participants
+		@activities.sort_by(&:from)
+		respond_with(@activities)
+	end
+
 	swagger_api :show do
 		summary "Shows the Activity"
 		notes "This shows the Activity"

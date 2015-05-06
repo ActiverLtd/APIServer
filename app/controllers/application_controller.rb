@@ -24,8 +24,8 @@ class ApplicationController < ActionController::Base
 	protected
 
 	def check_access (user)
-		if current_user != user or current_user.admin?
-			render :json => {errors: "The resource is not owned by you."}, status: :forbidden
+		if current_user != user and not current_user.admin?
+			render :json => {errors: 'The resource is not owned by you.'}, status: :forbidden
 		end
 	end
 

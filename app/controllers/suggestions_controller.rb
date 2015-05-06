@@ -1,7 +1,9 @@
 class SuggestionsController < ApplicationController
 	before_action :set_activity, only: [:show, :create]
 	before_action :set_suggestion, only: [:update, :destroy]
-	before_action -> { check_access @suggestion.user }, only: [:show, :update, :destroy]
+	before_action -> { check_access @suggestion.user }, only: [:show,
+	                                                           #:update, Temp disable as quick fix...
+	                                                           :destroy]
 	respond_to :json
 
 	swagger_controller :suggestions, "Suggestions Management"

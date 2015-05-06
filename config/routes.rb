@@ -4,6 +4,9 @@ APIServer::Application.routes.draw do
 	post 'profile/' => 'profiles#update'
 
 	post 'users/facebook/' => 'omniauth#facebook'
+
+	get 'activities/my' => 'activities#my'
+
 	get 'suggestions/' => 'suggestions#index'
 	get 'suggestions/:activity_id' => 'suggestions#show'
 
