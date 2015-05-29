@@ -18,7 +18,7 @@ docker build -t roopehakulinen/apiserver .
 
 Add --no-cache=true if you want to build clean version.
 
-CID=$(docker run -d -v $(pwd)/app:/app/app -p 443:443 -p 1234:1234 -p 26126:26126 --net=bridge roopehakulinen/apiserver)
+CID=$(docker run -d -v $(pwd)/app:/app/app -p 443:443 --net=bridge roopehakulinen/apiserver)
 
 ===Clear all images
 docker rmi $(docker images -q)
