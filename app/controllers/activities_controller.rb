@@ -26,6 +26,10 @@ class ActivitiesController < ApplicationController
 		if params.has_key?(:activity_type_id)
 			@activities = @activities.where(activities: {activity_type_id: params[:activity_type_id]})
 		end
+		if params.has_key?(:history)
+			history = JSON.parse(params[:history])
+			@activities = @activities.select { |activity| not history.include? activity.id }
+		end
 		respond_with(@activities)
 	end
 
