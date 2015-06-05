@@ -4,7 +4,7 @@ class DirectsController < ApplicationController
 	# GET /directs
 	# GET /directs.json
 	def index
-		@directs = Direct.find_by_user_id current_user.id
+		@directs = Direct.where user_id: current_user.id
 	end
 
 	# POST /directs

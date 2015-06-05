@@ -1,5 +1,7 @@
 APIServer::Application.routes.draw do
 	get 'users/' => 'user#index'
+	get 'profile/' => 'profiles#show'
+	post 'profile/' => 'profiles#update'
 
 	post 'users/facebook/' => 'omniauth#facebook'
 
@@ -8,7 +10,6 @@ APIServer::Application.routes.draw do
 	get 'suggestions/' => 'suggestions#index'
 	get 'suggestions/:activity_id' => 'suggestions#show'
 
-	resources :profiles, only: [:show, :update]
 	resources :directs, only: [:index, :create, :destroy]
 
 	resources :activity_types, except: [:new, :edit]
