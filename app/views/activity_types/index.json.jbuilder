@@ -1,3 +1,3 @@
 json.array!(@activity_types) do |activity_type|
-  json.extract! activity_type, :id, :name
+	json.partial! 'activity_types/activity_type', activity_type: activity_type
 end

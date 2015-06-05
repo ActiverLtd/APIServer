@@ -1,1 +1,1 @@
-json.extract! @activity_type, :id, :name, :created_at, :updated_at
+json.partial! 'activity_types/activity_type', activity_type: @activity_type

@@ -1,1 +1,2 @@
-json.extract! activity, :id, :from, :to, :activity_type_id, :created_at, :updated_at, :organizer, :comments, :participants, :participant_count
+json.extract! activity, :id, :from, :to, :created_at, :updated_at, :organizer, :comments, :participants, :participant_count
+json.partial! 'activity_types/activity_type', activity_type: activity.activity_type
