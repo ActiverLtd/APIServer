@@ -39,7 +39,7 @@ class ActivityTypesController < ApplicationController
 	def create
 		@activity_type = ActivityType.new(activity_type_params)
 		@activity_type.save
-		respond_with(@activity_type)
+		respond_with @activity_type, status: :created
 	end
 
 	swagger_api :update do

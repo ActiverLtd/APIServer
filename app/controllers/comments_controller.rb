@@ -44,7 +44,7 @@ class CommentsController < ApplicationController
 		@comment.user = current_user
 		@comment.activity = @activity
 		@comment.save
-		respond_with(@comment)
+		respond_with @comment, status: :created
 	end
 
 	swagger_api :update do

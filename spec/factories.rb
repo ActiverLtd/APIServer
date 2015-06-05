@@ -1,4 +1,9 @@
 FactoryGirl.define do
+	factory :direct do
+		user_id 1
+		direct_id 1
+	end
+
 	factory :comment do
 		text "MyString"
 		writer 1

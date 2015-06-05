@@ -72,7 +72,7 @@ class ActivitiesController < ApplicationController
 		@activity.organizer = current_user
 		@activity.save
 		Comment.create writer: current_user, activity: @activity, text: message
-		respond_with(@activity)
+		respond_with @activity, status: :created
 	end
 
 	swagger_api :update do

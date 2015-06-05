@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
 	after_create :add_profile
 
 	enum role: [:user, :vip, :admin]
-	after_initialize :set_default_role, :if => :new_record?
+	after_initialize :set_default_role, if: :new_record?
 
 	def set_default_role
 		self.role ||= :user
@@ -20,16 +20,18 @@ class User < ActiveRecord::Base
 
 	has_many :activities, dependent: :destroy
 	has_many :suggestions, dependent: :destroy
+	has_many :directs, dependent: :destroy
+	has_many :direct_users, through: :directs, class_name: :user
 	#has_many :upcoming_activities, -> { where ' = 1 AND from >= #{DateTime.now.to_date}' }, class_name: :suggestion
 
 	def as_json(options = {})
 		super(options.merge({#except: [:authentication_token],
-		                     :include => :profile}))
+		                     include: :profile}))
 	end
 
 	def add_profile
 		if new_record?
-			Profile.create! :user => self
+			Profile.create! user: self
 		end
 	end
 

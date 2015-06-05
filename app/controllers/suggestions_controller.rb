@@ -50,7 +50,7 @@ class SuggestionsController < ApplicationController
 		@suggestion.user_id = current_user.id
 		@suggestion.activity_id = @activity.id
 		@suggestion.save
-		respond_with(@suggestion)
+		respond_with @suggestion, status: :created
 	end
 
 	swagger_api :update do
