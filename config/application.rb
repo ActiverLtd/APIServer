@@ -34,14 +34,14 @@ module APIServer
 			#app.connections = 1
 			#app.save!
 
-			unless Rpush::Gcm::App.exists?(name: "Activer")
-				app = Rpush::Gcm::App.new
-				app.name = 'Activer'
-				app.certificate = File.read("config/cacert.pem")
-				app.auth_key = 'AIzaSyCToUsHSrpZVnLL_ZcsaDayde5YjHjsQLU'
-				app.connections = 1
-				app.save!
-			end
+			#unless Rpush::Gcm::App.exists?(name: "Activer")
+			#	app = Rpush::Gcm::App.new
+			#	app.name = 'Activer'
+			#	app.certificate = File.read("config/cacert.pem")
+			#	app.auth_key = 'AIzaSyCToUsHSrpZVnLL_ZcsaDayde5YjHjsQLU'
+			#	app.connections = 1
+			#	app.save!
+			#end
 		end
 	end
 end

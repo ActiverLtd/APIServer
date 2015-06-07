@@ -73,7 +73,7 @@ RUN rake db:create
 RUN rake db:migrate
 RUN rake db:seed
 RUN rake swagger:docs
-CMD foreman start -f Procfile && rpush start
+CMD rpush start && foreman start -f Procfile
 
 EXPOSE 443
 EXPOSE 1234
