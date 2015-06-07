@@ -72,8 +72,8 @@ class SuggestionsController < ApplicationController
 			end
 		end
 
-		send_notification @suggestion.activity.organizer 'Pyyntösi osallistua tapahtumaan #{@suggestion.activity.activity_type.name} hyväksyttiin!'
 		@suggestion.update(suggestion_params)
+		send_notification @suggestion.activity.organizer, "Pyyntösi osallistua tapahtumaan #{@suggestion.activity.activity_type.name} hyväksyttiin!"
 		respond_with(@suggestion)
 	end
 

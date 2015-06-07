@@ -78,18 +78,3 @@ APIServer::Application.configure do
 	# Use default logging formatter so that PID and timestamp are not suppressed.
 	config.log_formatter = ::Logger::Formatter.new
 end
-
-
-#app = Rpush::Apns::App.new
-#app.name = "Activer"
-#app.certificate = File.read("/path/to/sandbox.pem")
-#app.environment = "sandbox" # APNs environment.
-#app.password = "certificate password"
-#app.connections = 1
-#app.save!
-
-app = Rpush::Gcm::App.new
-app.name = "Activer"
-app.auth_key = "AIzaSyCToUsHSrpZVnLL_ZcsaDayde5YjHjsQLU"
-app.connections = 1
-app.save!

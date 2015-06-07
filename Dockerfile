@@ -11,16 +11,16 @@ RUN apt-get update
 
 # Install ruby-install
 RUN cd /tmp &&\
-wget -O ruby-install-0.4.3.tar.gz https://github.com/postmodern/ruby-install/archive/v0.4.3.tar.gz &&\
-tar -xzvf ruby-install-0.4.3.tar.gz &&\
-cd ruby-install-0.4.3/ &&\
+wget -O ruby-install-0.5.0.tar.gz https://github.com/postmodern/ruby-install/archive/v0.5.0.tar.gz &&\
+tar -xzvf ruby-install-0.5.0.tar.gz &&\
+cd ruby-install-0.5.0/ &&\
 make install
 
-# Install MRI Ruby 2.2.0
-RUN ruby-install ruby 2.2.0
+# Install MRI Ruby 2.2.2
+RUN ruby-install ruby 2.2.2
 
 # Add Ruby binaries to $PATH
-ENV PATH /opt/rubies/ruby-2.2.0/bin:$PATH
+ENV PATH /opt/rubies/ruby-2.2.2/bin:$PATH
 
 # Add options to gemrc
 RUN echo "gem: --no-document" > ~/.gemrc
@@ -73,7 +73,7 @@ RUN rake db:create
 RUN rake db:migrate
 RUN rake db:seed
 RUN rake swagger:docs
-CMD foreman start -f Procfile
+CMD foreman start -f Procfile && rpush start
 
 EXPOSE 443
 EXPOSE 1234
