@@ -71,6 +71,8 @@ class SuggestionsController < ApplicationController
 				render :json => {errors: "The invitation was already accepted."}, status: :unprocessable_entity and return
 			end
 		end
+
+		send_notification @suggestion.activity.organizer 'Pyyntösi osallistua tapahtumaan #{@suggestion.activity.activity_type.name} hyväksyttiin!'
 		@suggestion.update(suggestion_params)
 		respond_with(@suggestion)
 	end
