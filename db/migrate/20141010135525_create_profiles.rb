@@ -7,7 +7,6 @@ class CreateProfiles < ActiveRecord::Migration
 			t.date :born
 			t.boolean :male
 			t.datetime :registered, :default => Time.now
-			t.integer :range, :default => 50
 			t.float :rating_mean
 			t.integer :rating_count, :default => 0
 			t.integer :user_id
