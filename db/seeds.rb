@@ -1,12 +1,12 @@
 activityTypes = ActivityType.create(
 		[
-				{name: 'Sulkapallo', style: 'background-color: white;'},
-				{name: 'Tennis', style: 'background-color: yellow;'},
-				{name: 'Juoksu', style: 'background-color: brown;'},
-				{name: 'Hiihto', style: 'background-color: gray;'},
-				{name: 'Pingis', style: 'background-color: orange;'},
-				{name: 'Suunnistus', style: 'background-color: green;'},
-				{name: 'Uinti', style: 'background-color: blue;'}
+				{name: 'Sulkapallo', style: "background-image: url('http://www.brasil2016.gov.br/sites/default/files/editada_-_shutterstock_106009616.jpg'); "},
+				{name: 'Tennis', style: "background-image: url('http://www.kenwoodtravel.co.uk/gallery/Tennis-Court-at-Sandy-Lane-Barbados__00.jpg'); "},
+				{name: 'Juoksu', style: "background-image: url('https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTDfvmK6FwTWQJOdkwnQKrKiAAXsviZchKTao-AqoFEti0pST0oKA'); "},
+				{name: 'Jalkapallo', style: "background-image: url('https://drhurd.com/wp-content/uploads/2014/08/soccer400.png'); "},
+				{name: 'Hiihto', style: "background-image: url('http://www.binggl.com/tl_files/images/contentBilder/WINTER/langlaufen/15_vision_perform_classic_07_08_low.jpg');"},
+				{name: 'Pingis', style: "background-image: url('http://www.askaboutsports.com/images/table-tennis/table-tennis-net-ball-racquets-bsp-6906947-500x333.jpg');"},
+				{name: 'Uinti', style: "background-image: url('http://www.edinburghleisure.co.uk/sites/default/files/styles/hero_large/public/EL_0006_Dalry%20swim%20centre_0.jpg?itok=u9Z1bs0Q');"}
 		]
 )
 
