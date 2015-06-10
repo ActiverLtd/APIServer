@@ -64,6 +64,8 @@ ADD . /app
 # Add development certificates
 ADD localhost.cert /etc/ssl/certs/
 ADD localhost.key /etc/ssl/private/
+ADD activer_apns_sandbox.pem /etc/ssl/
+ADD activer_apns_sandbox.key /etc/ssl/
 
 RUN mkdir /app/tmp/
 

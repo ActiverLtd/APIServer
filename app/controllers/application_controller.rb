@@ -47,25 +47,34 @@ class ApplicationController < ActionController::Base
 
 
 	def send_notification(user, text)
-		_Gcm_notification user, text if true
-		_Apn_notification user, text if false
+		_Gcm_notification user, text if user.Gcm?
+		_Apns_notification user, text if user.Apns?
+		_Wpns_notification user, text if user.Wpns?
 
 	end
 
-	def _Apn_notification(user, text)
+	def _Gcm_notification(user, text)
+		n = Rpush::Gcm::Notification.new
+		n.app = Rpush::Gcm::App.find_by_name("Activer_Gcm")
+		n.registration_ids = [user.notification_id]
+		n.data = {message: text}
+		n.save!
+	end
+
+	def _Apns_notification(user, text)
 		n = Rpush::Apns::Notification.new
-		n.app = Rpush::Apns::App.find_by_name("Activer")
-		n.device_token = user.device_token # 64-character hex string
+		n.app = Rpush::Apns::App.find_by_name("Activer_Apns")
+		n.device_token = user.notification_id # 64-character hex string
 		n.alert = text
 		n.data = {message: text}
 		n.save!
 	end
 
-	def _Gcm_notification(user, text)
-		n = Rpush::Gcm::Notification.new
-		n.app = Rpush::Gcm::App.find_by_name("Activer")
-		n.registration_ids = ["APA91bFTz6izh23Lsmw0ZtVYHMeYiAeLKSYXNHOezVqA2dznrqqPc38ioIrJUipDq8Yji2ImLhIsNf1rVFWBM-EdyLB-OkqQWWXSP4VtWvu0j7HhUaKeNPJqPpoLc0vVzDgockefopeg"] #[user.registration_id]
-		n.data = {message: text}
+	def _Wpns_notification(user, text)
+		n = Rpush::Wpns::Notification.new
+		n.app = Rpush::Wpns::App.find_by_name("Activer_Wpns")
+		n.uri = ""
+		n.data = {title: "MyApp", body: "Hello world", param: "user_param1"}
 		n.save!
 	end
 end

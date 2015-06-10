@@ -24,24 +24,5 @@ module APIServer
 		# The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
 		# config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
 		# config.i18n.default_locale = :de
-
-		config.after_initialize do
-			#app = Rpush::Apns::App.new
-			#app.name = "Activer"
-			#app.certificate = File.read("/path/to/sandbox.pem")
-			#app.environment = "sandbox" # APNs environment.
-			#app.password = "certificate password"
-			#app.connections = 1
-			#app.save!
-
-			#unless Rpush::Gcm::App.exists?(name: "Activer")
-			#	app = Rpush::Gcm::App.new
-			#	app.name = 'Activer'
-			#	app.certificate = File.read("config/cacert.pem")
-			#	app.auth_key = 'AIzaSyCToUsHSrpZVnLL_ZcsaDayde5YjHjsQLU'
-			#	app.connections = 1
-			#	app.save!
-			#end
-		end
 	end
 end

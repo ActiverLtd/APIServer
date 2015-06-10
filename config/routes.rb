@@ -1,5 +1,8 @@
 APIServer::Application.routes.draw do
-	get 'users/' => 'user#index'
+	get 'user/' => 'user#index'
+	delete 'user/' => 'user#destroy'
+	put 'user/' => 'user#update'
+
 	get 'profile/' => 'profiles#show'
 	post 'profile/' => 'profiles#update'
 

@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
 	acts_as_token_authenticatable
 	after_initialize :add_profile
 
+	enum notification_system: [:Gcm, :Apns, :Wpns]
+
 	enum role: [:user, :vip, :admin]
 	after_initialize :set_default_role, if: :new_record?
 
