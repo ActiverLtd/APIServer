@@ -44,6 +44,9 @@ class CommentsController < ApplicationController
 		@comment.user = current_user
 		@comment.activity = @activity
 		@comment.save
+		@comment.activity.participants.each do |participant|
+			send_notification participant, 'Uusi kommentti', "#{participant.name}: #{@comment.text[0..16]}.."
+		end
 		respond_with @comment, status: :created
 	end
 

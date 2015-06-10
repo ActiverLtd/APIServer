@@ -46,22 +46,22 @@ class ApplicationController < ActionController::Base
 	end
 
 
-	def send_notification(user, text)
-		_Gcm_notification user, text if user.Gcm?
-		_Apns_notification user, text if user.Apns?
-		_Wpns_notification user, text if user.Wpns?
+	def send_notification(user, title, text)
+		_Gcm_notification user, title, text if user.Gcm?
+		_Apns_notification user, title, text if user.Apns?
+		_Wpns_notification user, title, text if user.Wpns?
 
 	end
 
-	def _Gcm_notification(user, text)
+	def _Gcm_notification(user, title, text)
 		n = Rpush::Gcm::Notification.new
 		n.app = Rpush::Gcm::App.find_by_name("Activer_Gcm")
 		n.registration_ids = [user.notification_id]
-		n.data = {message: text}
+		n.data = {title: title, message: text}
 		n.save!
 	end
 
-	def _Apns_notification(user, text)
+	def _Apns_notification(user, title, text)
 		n = Rpush::Apns::Notification.new
 		n.app = Rpush::Apns::App.find_by_name("Activer_Apns")
 		n.device_token = user.notification_id # 64-character hex string
@@ -70,11 +70,11 @@ class ApplicationController < ActionController::Base
 		n.save!
 	end
 
-	def _Wpns_notification(user, text)
+	def _Wpns_notification(user, title, text)
 		n = Rpush::Wpns::Notification.new
 		n.app = Rpush::Wpns::App.find_by_name("Activer_Wpns")
 		n.uri = ""
-		n.data = {title: "MyApp", body: "Hello world", param: "user_param1"}
+		n.data = {title: title, body: text}
 		n.save!
 	end
 end
