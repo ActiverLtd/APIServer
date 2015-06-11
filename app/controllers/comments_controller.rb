@@ -45,7 +45,7 @@ class CommentsController < ApplicationController
 		@comment.activity = @activity
 		@comment.save
 		@comment.activity.participants.each do |participant|
-			send_notification participant, 'Uusi kommentti', "#{participant.name}: #{@comment.text[0..16]}.."
+			send_notification participant, 'Uusi kommentti', "#{participant.name}: #{@comment.text[0..16]}..", "#{participant.name}: #{@comment.text[0..16]}.." unless participant == @comment.writer
 		end
 		respond_with @comment, status: :created
 	end

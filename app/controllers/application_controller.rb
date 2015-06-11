@@ -46,11 +46,10 @@ class ApplicationController < ActionController::Base
 	end
 
 
-	def send_notification(user, title, text)
+	def send_notification(user, title, text, text_only)
 		_Gcm_notification user, title, text if user.Gcm?
-		_Apns_notification user, title, text if user.Apns?
+		_Apns_notification user, text_only if user.Apns?
 		_Wpns_notification user, title, text if user.Wpns?
-
 	end
 
 	def _Gcm_notification(user, title, text)
@@ -61,7 +60,7 @@ class ApplicationController < ActionController::Base
 		n.save!
 	end
 
-	def _Apns_notification(user, title, text)
+	def _Apns_notification(user, text)
 		n = Rpush::Apns::Notification.new
 		n.app = Rpush::Apns::App.find_by_name("Activer_Apns")
 		n.device_token = user.notification_id # 64-character hex string

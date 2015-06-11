@@ -22,10 +22,18 @@ class ActivitiesController < ApplicationController
 		# First filter by range
 		@activities = Activity.within(params[:range], :origin => [params[:lat], params[:lng]])
 
+		# Then take out the ones created by yourself
+		@activities = @activities.where.not(organizer: current_user)
+
+		# Then check which already have conclusion
 		@activities = @activities.includes(:suggestions).where('activities.id NOT IN (SELECT activity_id FROM suggestions WHERE user_id = ?)', current_user.id)
+
+		# Then check if there was certain activity type filter used
 		if params.has_key?(:activity_type_id)
 			@activities = @activities.where(activities: {activity_type_id: params[:activity_type_id]})
 		end
+
+		# And finally remove the already downloaded ones
 		if params.has_key?(:history)
 			history = JSON.parse(params[:history])
 			@activities = @activities.select { |activity| not history.include? activity.id }
@@ -72,6 +80,10 @@ class ActivitiesController < ApplicationController
 		@activity.organizer = current_user
 		@activity.save
 		Comment.create writer: current_user, activity: @activity, text: message
+		activity_params[:directs].each do |direct_id|
+			user = User.find(direct_id)
+			send_notification user, 'Kutsu aktiviteettiin', "#{current_user.name} kutsui lajiin #{@activity.activity_type.name}", "#{current_user.name} kutsui lajiin #{@activity.activity_type.name}"
+		end
 		respond_with @activity, status: :created
 	end
 
@@ -111,6 +123,6 @@ class ActivitiesController < ApplicationController
 	end
 
 	def activity_params
-		params.require(:activity).permit(:from, :to, :location_name, :lat, :lng, :activity_type_id, :message, :participant_count, :required_level)
+		params.require(:activity).permit(:from, :to, :location_name, :lat, :lng, :activity_type_id, :message, :participant_count, :required_level, :directs)
 	end
 end

@@ -50,6 +50,7 @@ class SuggestionsController < ApplicationController
 		@suggestion.user_id = current_user.id
 		@suggestion.activity_id = @activity.id
 		@suggestion.save
+		send_notification @suggestion.activity.organizer, @suggestion.activity.activity_type.name, "#{@suggestion.user.name} haluaa osallistua.", "#{@suggestion.user.name} haluaa osallistua lajiin #{@suggestion.activity.activity_type.name}."
 		respond_with @suggestion, status: :created
 	end
 
@@ -65,15 +66,24 @@ class SuggestionsController < ApplicationController
 
 	def update
 		if !current_user.admin? # Allow admins to update they as they wish..
-			if !@suggestion.invited? or suggestion_params[:status] != 2
-				render :json => {errors: "Can't accept suggestion unless it is invitation in the first place."}, status: :unprocessable_entity and return
+			if !@suggestion.invited? or (suggestion_params[:status] != 2 and suggestion_params[:status] != 3)
+				render :json => {errors: "Can't accept/reject suggestion unless it is invitation in the first place."}, status: :unprocessable_entity and return
 			elsif @suggestion.match?
 				render :json => {errors: "The invitation was already accepted."}, status: :unprocessable_entity and return
 			end
 		end
 
 		@suggestion.update(suggestion_params)
-		send_notification @suggestion.activity.organizer, @suggestion.activity.activity_type.name, "Pyyntösi osallistua hyväksyttiin!"
+		text = 'Pyyntösi osallistua '
+		text_only = "#{@suggestion.activity.activity_type.name}: pyyntösi osallistua "
+		if @suggestion.match?
+			text += 'hyväksyttiin!'
+			text_only += 'hyväksyttiin.'
+		elsif @suggestion.rejected?
+			text += 'hylättiin!'
+			text_only += 'hylättiin.'
+		end
+		send_notification @suggestion.user, @suggestion.activity.activity_type.name, text, text_only
 		respond_with(@suggestion)
 	end
 

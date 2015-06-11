@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
 	has_one :profile, dependent: :destroy
 	accepts_nested_attributes_for :profile # This allows the profile attributes to be set as part of registration
 
-	has_many :activities, dependent: :destroy
+	has_many :activities, foreign_key: 'organizer_id', dependent: :destroy
 	has_many :suggestions, dependent: :destroy
 	has_many :directs, dependent: :destroy
 	has_many :direct_users, through: :directs, class_name: :user
@@ -34,6 +34,12 @@ class User < ActiveRecord::Base
 	def add_profile
 		if new_record?
 			Profile.create! user: self
+		end
+	end
+
+	def activity_count
+		Rails.cache.fetch("#{cache_key}/activity_count", expires_in: 12.hours) do
+			self.activities.size + self.suggestions.where(status: Suggestion.statuses[:match]).size
 		end
 	end
 
