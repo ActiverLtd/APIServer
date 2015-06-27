@@ -56,9 +56,8 @@ apt-get install -y --force-yes libpq-dev
 WORKDIR /app
 ADD Gemfile /app/Gemfile
 #ADD Gemfile.lock /app/Gemfile.lock
-ENV RAILS_ENV development
-RUN bundle install
-#--without development test
+ENV RAILS_ENV production
+RUN bundle install --without development test
 ADD . /app
 
 # Add development certificates
@@ -67,7 +66,7 @@ ADD localhost.key /etc/ssl/private/
 ADD activer_apns_sandbox.pem /etc/ssl/
 ADD activer_apns_sandbox.key /etc/ssl/
 
-RUN mkdir /app/tmp/
+#RUN mkdir /app/tmp/
 
 # Add default foreman config
 #CMD bundle exec rake assets:precompile

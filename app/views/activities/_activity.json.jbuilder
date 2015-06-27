@@ -8,7 +8,6 @@ end
 json.participants do
 	json.partial! 'profiles/profiles', users: activity.participants
 end
-json.comments activity.comments do |comment|
-	json.extract! comment, :id, :text, :created_at
-	json.author comment.user.profile.name
+json.comments do
+	json.partial! 'comments/comments', comments: activity.comments
 end

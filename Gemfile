@@ -8,9 +8,6 @@ gem 'rails', '4.2.1'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
-
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder'
 
@@ -18,11 +15,9 @@ group :test, :development do
 	gem 'rspec-rails', '>= 2.0.0.beta'
 	gem 'factory_girl_rails'
 	gem 'guard-rspec'
-end
 
-group :doc do
-	# bundle exec rake doc:rails generates the API under doc/api.
-	gem 'sdoc', require: false
+	# Use debugger
+	gem 'debase'
 end
 
 gem 'eventmachine'
@@ -40,20 +35,8 @@ platforms :ruby do # linux
 end
 
 platforms :mswin do
-
 	# gems specific to windows
-
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
-
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
-
-# Use debugger
-gem 'debase'
-gem 'ruby-debug-ide' #, group: [:development, :test]
-
-#gem 'centurion'
-
 gem 'swagger-docs'
