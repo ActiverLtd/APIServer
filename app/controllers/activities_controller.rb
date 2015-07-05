@@ -76,13 +76,13 @@ class ActivitiesController < ApplicationController
 
 	def create
 		message = activity_params[:message]
-		@activity = Activity.new(activity_params.slice!(:message))
+		@activity = Activity.new(activity_params.slice!(:message).slice!(:directs))
 		@activity.organizer = current_user
 		@activity.save
 		Comment.create writer: current_user, activity: @activity, text: message
 		activity_params[:directs].each do |direct_id|
 			user = User.find(direct_id)
-			send_notification user, 'Kutsu aktiviteettiin', "#{current_user.name} kutsui lajiin #{@activity.activity_type.name}", "#{current_user.name} kutsui lajiin #{@activity.activity_type.name}"
+			send_notification user, 'Kutsu aktiviteettiin', "#{current_user.profile.name} kutsui lajiin #{@activity.activity_type.name}", "#{current_user.profile.name} kutsui lajiin #{@activity.activity_type.name}"
 		end
 		respond_with @activity, status: :created
 	end
@@ -123,6 +123,6 @@ class ActivitiesController < ApplicationController
 	end
 
 	def activity_params
-		params.require(:activity).permit(:from, :to, :location_name, :lat, :lng, :activity_type_id, :message, :participant_count, :required_level, :directs)
+		params.require(:activity).permit(:from, :to, :location_name, :lat, :lng, :activity_type_id, :message, :participant_count, :required_level, :directs => [])
 	end
 end
