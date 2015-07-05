@@ -12,7 +12,7 @@ gem 'sqlite3'
 gem 'jbuilder'
 
 group :test, :development do
-	gem 'rspec-rails', '>= 2.0.0.beta'
+	gem 'rspec-rails'
 	gem 'factory_girl_rails'
 	gem 'guard-rspec'
 
