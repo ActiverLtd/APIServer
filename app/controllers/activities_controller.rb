@@ -33,6 +33,9 @@ class ActivitiesController < ApplicationController
 			@activities = @activities.where(activities: {activity_type_id: params[:activity_type_id]})
 		end
 
+		# Remove "full" activities
+		@activities = @activities.select { |activity| activity.participants.size + 1 < activity.participant_count }
+
 		# And finally remove the already downloaded ones
 		if params.has_key?(:history)
 			history = JSON.parse(params[:history])
