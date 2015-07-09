@@ -83,9 +83,11 @@ class ActivitiesController < ApplicationController
 		@activity.organizer = current_user
 		@activity.save
 		Comment.create user: current_user, activity: @activity, text: message
-		activity_params[:directs].each do |direct_id|
-			user = User.find(direct_id)
-			send_notification user, 'Kutsu aktiviteettiin', "#{current_user.profile.name} kutsui lajiin #{@activity.activity_type.name}", "#{current_user.profile.name} kutsui lajiin #{@activity.activity_type.name}"
+		if activity_params[:directs]
+			activity_params[:directs].each do |direct_id|
+				user = User.find(direct_id)
+				send_notification user, 'Kutsu aktiviteettiin', "#{current_user.profile.name} kutsui lajiin #{@activity.activity_type.name}", "#{current_user.profile.name} kutsui lajiin #{@activity.activity_type.name}"
+			end
 		end
 		respond_with @activity, status: :created
 	end
