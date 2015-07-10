@@ -1,8 +1,9 @@
 class Profile < ActiveRecord::Base
-	belongs_to :user, :dependent => :destroy
+	belongs_to :user, inverse_of: :profile
 	has_many :profile_settings
 
-	#validates :user_id, allow_nil: false
+	validates_presence_of :user
+	validates :name, presence: true, length: {minimum: 4}
 
 	def is_direct(current_user)
 		current_user.directs.collect { |a| a.direct }.include? self.user

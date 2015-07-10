@@ -46,8 +46,8 @@ class ActivitiesController < ApplicationController
 
 	def my
 		my_activities = Activity.all.where(organizer_id: current_user.id)
-		participants = Activity.includes(:suggestions).where(suggestions: {user_id: current_user.id}).where.not(suggestions: {status: 0})
-		@activities = my_activities + participants
+		participates = Activity.includes(:suggestions).where(suggestions: {user_id: current_user.id}).where.not(suggestions: {status: 0})
+		@activities = my_activities + participates
 		@activities.sort_by(&:from)
 		respond_with(@activities)
 	end
@@ -82,7 +82,7 @@ class ActivitiesController < ApplicationController
 		@activity = Activity.new(activity_params.slice!(:message).slice!(:directs))
 		@activity.organizer = current_user
 		@activity.save
-		Comment.create user: current_user, activity: @activity, text: message
+		Comment.create({user: current_user, activity: @activity, text: message})
 		if activity_params[:directs]
 			activity_params[:directs].each do |direct_id|
 				user = User.find(direct_id)

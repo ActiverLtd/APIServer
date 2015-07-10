@@ -1,6 +1,6 @@
 class AddRootUsers < ActiveRecord::Migration
 	def self.up
-		User.create!(:email => 'info@activer.net', :password => "password", :role => 2)
+		User.create!(email: 'info@activer.net', password: 'password', role: 2, profile_attributes: {name: 'Activer Info'})
 	end
 
 	def self.down

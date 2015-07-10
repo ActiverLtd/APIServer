@@ -50,7 +50,7 @@ class SuggestionsController < ApplicationController
 		@suggestion.user_id = current_user.id
 		@suggestion.activity_id = @activity.id
 		@suggestion.save
-		send_notification @suggestion.activity.organizer, @suggestion.activity.activity_type.name, "#{@suggestion.user.name} haluaa osallistua.", "#{@suggestion.user.name} haluaa osallistua lajiin #{@suggestion.activity.activity_type.name}."
+		send_notification @suggestion.activity.organizer, @suggestion.activity.activity_type.name, "#{@suggestion.user.profile.name} haluaa osallistua.", "#{@suggestion.user.profile.name} haluaa osallistua lajiin #{@suggestion.activity.activity_type.name}."
 		respond_with @suggestion, status: :created
 	end
 

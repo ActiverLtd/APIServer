@@ -1,7 +1,6 @@
 class User < ActiveRecord::Base
 	include RailsSettings::Extend
 	acts_as_token_authenticatable
-	after_initialize :add_profile
 
 	enum notification_system: [:Gcm, :Apns, :Wpns]
 
@@ -17,24 +16,22 @@ class User < ActiveRecord::Base
 	devise :database_authenticatable, :registerable,
 	       :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
-	has_one :profile, dependent: :destroy
+	has_one :profile, inverse_of: :user, dependent: :destroy
+	default_scope { includes(:profile) } # Always include profile
 	accepts_nested_attributes_for :profile # This allows the profile attributes to be set as part of registration
 
-	has_many :activities, foreign_key: 'organizer_id', dependent: :destroy
-	has_many :suggestions, dependent: :destroy
-	has_many :directs, dependent: :destroy
-	has_many :direct_users, through: :directs, class_name: :user
+	has_many :activities, foreign_key: 'organizer_id', inverse_of: :organizer, dependent: :destroy
+	has_many :suggestions, inverse_of: :user, dependent: :destroy
+	has_many :directs, inverse_of: :user, dependent: :destroy
+	has_many :direct_users, through: :directs, class_name: :user, inverse_of: :direct
+	has_many :comments, inverse_of: :user, dependent: :destroy
 	#has_many :upcoming_activities, -> { where ' = 1 AND from >= #{DateTime.now.to_date}' }, class_name: :suggestion
+
+	validates_inclusion_of :role, in: User.roles.keys
 
 	def as_json(options = {})
 		super(options.merge({#except: [:authentication_token],
 		                     include: :profile}))
-	end
-
-	def add_profile
-		if new_record?
-			Profile.create! user: self
-		end
 	end
 
 	def activity_count

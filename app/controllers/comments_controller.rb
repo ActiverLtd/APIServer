@@ -40,6 +40,7 @@ class CommentsController < ApplicationController
 	end
 
 	def create
+		render :json => {error: 'Only allowed for users that are accepted for this activity.'}, :status => :forbidden && return if current_user != @activity.organizer && @activity.suggestions.where(status: 2).include?(current_user)
 		@comment = Comment.new(comment_params)
 		@comment.user = current_user
 		@comment.activity = @activity
