@@ -25,9 +25,9 @@ ENV PATH /opt/rubies/ruby-2.2.2/bin:$PATH
 # Add options to gemrc
 RUN echo "gem: --no-document" > ~/.gemrc
 
-# Install bundler
+# Install bundler & foreman
 RUN gem install bundler
-
+RUN gem install foreman
 
 # Install software-properties-common for add-apt-repository
 RUN apt-get install -qq -y software-properties-common
@@ -42,9 +42,6 @@ RUN chown -R www-data:www-data /var/lib/nginx
 # Add default nginx config
 ADD nginx-sites.conf /etc/nginx/sites-enabled/default
 
-# Install foreman
-RUN gem install foreman
-RUN gem install debase
 
 # Install the latest postgresql lib for pg gem
 RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
@@ -66,10 +63,6 @@ ADD localhost.key /etc/ssl/private/
 ADD activer_apns_sandbox.pem /etc/ssl/
 ADD activer_apns_sandbox.key /etc/ssl/
 
-#RUN mkdir /app/tmp/
-
-# Add default foreman config
-#CMD bundle exec rake assets:precompile
 RUN rake db:create
 RUN rake db:migrate
 RUN rake db:seed
@@ -77,5 +70,3 @@ RUN rake swagger:docs
 CMD rpush start && foreman start -f Procfile
 
 EXPOSE 443
-EXPOSE 1234
-EXPOSE 26126
